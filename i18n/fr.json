@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gomoko"
+		]
+	},
+	"perpagelanguage-desc": "Définir la langue d’interface pour qu’elle corresponde à la langue du contenu de la page",
+	"perpagelanguage-label": "Définir la langue"
+}
