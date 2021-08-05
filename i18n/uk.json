@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"DDPAT"
+		]
+	},
+	"perpagelanguage-desc": "Встановлює мову інтерфейсу відповідно до мови вмісту сторінки",
+	"perpagelanguage-label": "Вибрати мову"
+}
