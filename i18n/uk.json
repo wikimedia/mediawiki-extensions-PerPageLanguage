@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"DDPAT"
+			"DDPAT",
+			"Ice bulldog"
 		]
 	},
 	"perpagelanguage-desc": "Встановлює мову інтерфейсу відповідно до мови вмісту сторінки",
