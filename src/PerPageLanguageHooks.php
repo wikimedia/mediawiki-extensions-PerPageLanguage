@@ -103,8 +103,10 @@ class PerPageLanguageHooks {
 				return;
 			}
 		}
-		// Forcefully set the interface language code to the page language
-		$code = $pageLanguageDB;
+		// Forcefully set the interface language code to the page view language
+		// Handling PageViewLanguage for language variants is needed here
+		// Directly using $pageLanguageDB will ignore language variant selection
+		$code = Language::factory( $pageLanguageDB )->getPreferredVariant();
 	}
 
 }
