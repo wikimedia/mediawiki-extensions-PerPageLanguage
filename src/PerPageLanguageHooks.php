@@ -3,7 +3,6 @@
 namespace PerPageLanguage;
 
 use IContextSource;
-use Language;
 use MediaWiki\MediaWikiServices;
 use ReflectionException;
 use ReflectionMethod;
@@ -106,7 +105,8 @@ class PerPageLanguageHooks {
 		// Forcefully set the interface language code to the page view language
 		// Handling PageViewLanguage for language variants is needed here
 		// Directly using $pageLanguageDB will ignore language variant selection
-		$code = Language::factory( $pageLanguageDB )->getPreferredVariant();
+		$code = MediaWikiServices::getInstance()->getLanguageFactory()
+			->getLanguage( $pageLanguageDB )->getPreferredVariant();
 	}
 
 }
