@@ -5,7 +5,9 @@ namespace PerPageLanguage;
 use IContextSource;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 use MediaWiki\Hook\UserGetLanguageObjectHook;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\User\UserOptionsLookup;
 use ReflectionException;
 use ReflectionMethod;
 use SkinTemplate;
@@ -16,6 +18,30 @@ class PerPageLanguageHooks implements
 	SkinTemplateNavigation__UniversalHook,
 	UserGetLanguageObjectHook
 {
+
+	/** @var LanguageFactory */
+	private $languageFactory;
+
+	/** @var PermissionManager */
+	private $permissionManager;
+
+	/** @var UserOptionsLookup */
+	private $userOptionsLookup;
+
+	/**
+	 * @param LanguageFactory $languageFactory
+	 * @param PermissionManager $permissionManager
+	 * @param UserOptionsLookup $userOptionsLookup
+	 */
+	public function __construct(
+		LanguageFactory $languageFactory,
+		PermissionManager $permissionManager,
+		UserOptionsLookup $userOptionsLookup
+	) {
+		$this->languageFactory = $languageFactory;
+		$this->permissionManager = $permissionManager;
+		$this->userOptionsLookup = $userOptionsLookup;
+	}
 
 	/**
 	 * @param SkinTemplate $sktemplate
@@ -48,7 +74,7 @@ class PerPageLanguageHooks implements
 			return;
 		}
 
-		if ( !MediaWikiServices::getInstance()->getPermissionManager()->userHasRight( $user, 'pagelang' ) ) {
+		if ( !$this->permissionManager->userHasRight( $user, 'pagelang' ) ) {
 			return;
 		}
 
@@ -102,9 +128,7 @@ class PerPageLanguageHooks implements
 
 		if ( !$wgPerPageLanguageIgnoreUserSetting ) {
 			// If we want to respect the user preference on language
-			$userLanguage = MediaWikiServices::getInstance()
-				->getUserOptionsLookup()
-				->getOption( $user, 'language' );
+			$userLanguage = $this->userOptionsLookup->getOption( $user, 'language' );
 			if ( $userLanguage != $wgLanguageCode ) {
 				// If user did set language option to value different from
 				// the default one - do nothing
@@ -114,8 +138,7 @@ class PerPageLanguageHooks implements
 		// Forcefully set the interface language code to the page view language
 		// Handling PageViewLanguage for language variants is needed here
 		// Directly using $pageLanguageDB will ignore language variant selection
-		$code = MediaWikiServices::getInstance()->getLanguageFactory()
-			->getLanguage( $pageLanguageDB )->getPreferredVariant();
+		$code = $this->languageFactory->getLanguage( $pageLanguageDB )->getPreferredVariant();
 	}
 
 }

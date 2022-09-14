@@ -21,7 +21,12 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "PerPageLanguage\\PerPageLanguageHooks"
+			"class": "PerPageLanguage\\PerPageLanguageHooks",
+			"services": [
+				"LanguageFactory",
+				"PermissionManager",
+				"UserOptionsLookup"
+			]
 		}
 	},
 	"config": {
