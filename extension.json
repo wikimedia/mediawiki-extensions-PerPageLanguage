@@ -16,8 +16,13 @@
 		"PerPageLanguage\\": "src/"
 	},
 	"Hooks": {
-		"SkinTemplateNavigation::Universal": "PerPageLanguage\\PerPageLanguageHooks::onSkinTemplateNavigationUniversal",
-		"UserGetLanguageObject": "PerPageLanguage\\PerPageLanguageHooks::onUserGetLanguageObject"
+		"SkinTemplateNavigation::Universal": "main",
+		"UserGetLanguageObject": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "PerPageLanguage\\PerPageLanguageHooks"
+		}
 	},
 	"config": {
 		"PerPageLanguageIgnoreUserSetting": {

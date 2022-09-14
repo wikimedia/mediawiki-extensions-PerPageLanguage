@@ -3,6 +3,8 @@
 namespace PerPageLanguage;
 
 use IContextSource;
+use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
+use MediaWiki\Hook\UserGetLanguageObjectHook;
 use MediaWiki\MediaWikiServices;
 use ReflectionException;
 use ReflectionMethod;
@@ -10,13 +12,19 @@ use SkinTemplate;
 use SpecialPage;
 use User;
 
-class PerPageLanguageHooks {
+class PerPageLanguageHooks implements
+	SkinTemplateNavigation__UniversalHook,
+	UserGetLanguageObjectHook
+{
 
 	/**
 	 * @param SkinTemplate $sktemplate
 	 * @param array &$links
+	 * @return void This hook must not abort, it must return no value
+	 * @phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 	 */
-	public static function onSkinTemplateNavigationUniversal( SkinTemplate $sktemplate, array &$links ) {
+	public function onSkinTemplateNavigation__Universal( $sktemplate, &$links ): void {
+		// phpcs:enable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 		global $wgPageLanguageUseDB;
 
 		if ( !$wgPageLanguageUseDB ) {
@@ -56,10 +64,11 @@ class PerPageLanguageHooks {
 	 * @param User $user
 	 * @param string &$code
 	 * @param IContextSource $context
+	 * @return bool|void True or no return value to continue or false to abort
 	 *
 	 * @throws ReflectionException
 	 */
-	public static function onUserGetLanguageObject( User $user, string &$code, IContextSource $context ) {
+	public function onUserGetLanguageObject( $user, &$code, $context ) {
 		global $wgPageLanguageUseDB, $wgPerPageLanguageIgnoreUserSetting, $wgLanguageCode;
 
 		if ( !$wgPageLanguageUseDB ) {
