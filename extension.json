@@ -24,6 +24,7 @@
 			"class": "PerPageLanguage\\PerPageLanguageHooks",
 			"services": [
 				"LanguageFactory",
+				"LanguageConverterFactory",
 				"PermissionManager",
 				"UserOptionsLookup"
 			]

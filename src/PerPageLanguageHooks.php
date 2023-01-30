@@ -5,6 +5,7 @@ namespace PerPageLanguage;
 use IContextSource;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 use MediaWiki\Hook\UserGetLanguageObjectHook;
+use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\User\UserOptionsLookup;
@@ -22,6 +23,9 @@ class PerPageLanguageHooks implements
 	/** @var LanguageFactory */
 	private $languageFactory;
 
+	/** @var LanguageConverterFactory */
+	private $languageConverterFactory;
+
 	/** @var PermissionManager */
 	private $permissionManager;
 
@@ -30,15 +34,18 @@ class PerPageLanguageHooks implements
 
 	/**
 	 * @param LanguageFactory $languageFactory
+	 * @param LanguageConverterFactory $languageConverterFactory
 	 * @param PermissionManager $permissionManager
 	 * @param UserOptionsLookup $userOptionsLookup
 	 */
 	public function __construct(
 		LanguageFactory $languageFactory,
+		LanguageConverterFactory $languageConverterFactory,
 		PermissionManager $permissionManager,
 		UserOptionsLookup $userOptionsLookup
 	) {
 		$this->languageFactory = $languageFactory;
+		$this->languageConverterFactory = $languageConverterFactory;
 		$this->permissionManager = $permissionManager;
 		$this->userOptionsLookup = $userOptionsLookup;
 	}
@@ -138,7 +145,9 @@ class PerPageLanguageHooks implements
 		// Forcefully set the interface language code to the page view language
 		// Handling PageViewLanguage for language variants is needed here
 		// Directly using $pageLanguageDB will ignore language variant selection
-		$code = $this->languageFactory->getLanguage( $pageLanguageDB )->getPreferredVariant();
+		$code = $this->languageConverterFactory
+			->getLanguageConverter( $this->languageFactory->getLanguage( $pageLanguageDB ) )
+			->getPreferredVariant();
 	}
 
 }
