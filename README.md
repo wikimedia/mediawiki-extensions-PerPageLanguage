@@ -10,7 +10,7 @@ The extension requires the `$wgPageLanguageUseDB` global to be set to `true`.
 
 # Requirements
 
-* MediaWiki 1.35+
+* MediaWiki 1.39+
 * The extension requires the `$wgPageLanguageUseDB` global to be set to `true`
 
 # Setup

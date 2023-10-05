@@ -7,6 +7,7 @@ use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 use MediaWiki\Hook\UserGetLanguageObjectHook;
 use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\User\UserOptionsLookup;
 use ReflectionException;
@@ -58,7 +59,7 @@ class Hooks implements
 	 */
 	public function onSkinTemplateNavigation__Universal( $sktemplate, &$links ): void {
 		// phpcs:enable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
-		if ( !$sktemplate->getConfig()->get( 'PageLanguageUseDB' ) ) {
+		if ( !$sktemplate->getConfig()->get( MainConfigNames::PageLanguageUseDB ) ) {
 			// Nothing to do if the setting is disabled
 			return;
 		}
@@ -100,7 +101,7 @@ class Hooks implements
 	 * @throws ReflectionException
 	 */
 	public function onUserGetLanguageObject( $user, &$code, $context ) {
-		if ( !$context->getConfig()->get( 'PageLanguageUseDB' ) ) {
+		if ( !$context->getConfig()->get( MainConfigNames::PageLanguageUseDB ) ) {
 			// Nothing to do if the setting is disabled
 			return;
 		}
@@ -132,7 +133,7 @@ class Hooks implements
 		if ( !$context->getConfig()->get( 'PerPageLanguageIgnoreUserSetting' ) ) {
 			// If we want to respect the user preference on language
 			$userLanguage = $this->userOptionsLookup->getOption( $user, 'language' );
-			$contentLanguage = $context->getConfig()->get( 'LanguageCode' );
+			$contentLanguage = $context->getConfig()->get( MainConfigNames::LanguageCode );
 			if ( $userLanguage !== $contentLanguage ) {
 				// If user did set language option to value different from
 				// the default one - do nothing
