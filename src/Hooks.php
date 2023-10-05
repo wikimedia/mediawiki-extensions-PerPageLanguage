@@ -1,6 +1,6 @@
 <?php
 
-namespace PerPageLanguage;
+namespace MediaWiki\Extension\PerPageLanguage;
 
 use IContextSource;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
@@ -15,7 +15,7 @@ use SkinTemplate;
 use SpecialPage;
 use User;
 
-class PerPageLanguageHooks implements
+class Hooks implements
 	SkinTemplateNavigation__UniversalHook,
 	UserGetLanguageObjectHook
 {

@@ -13,7 +13,7 @@
 	},
 	"type": "other",
 	"AutoloadNamespaces": {
-		"PerPageLanguage\\": "src/"
+		"MediaWiki\\Extension\\PerPageLanguage\\": "src/"
 	},
 	"Hooks": {
 		"SkinTemplateNavigation::Universal": "main",
@@ -21,7 +21,7 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "PerPageLanguage\\PerPageLanguageHooks",
+			"class": "MediaWiki\\Extension\\PerPageLanguage\\Hooks",
 			"services": [
 				"LanguageFactory",
 				"LanguageConverterFactory",
