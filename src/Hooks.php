@@ -9,12 +9,12 @@ use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\User\User;
 use MediaWiki\User\UserOptionsLookup;
 use ReflectionException;
 use ReflectionMethod;
 use SkinTemplate;
-use SpecialPage;
-use User;
 
 class Hooks implements
 	SkinTemplateNavigation__UniversalHook,
