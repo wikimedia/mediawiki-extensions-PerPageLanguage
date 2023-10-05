@@ -58,9 +58,7 @@ class Hooks implements
 	 */
 	public function onSkinTemplateNavigation__Universal( $sktemplate, &$links ): void {
 		// phpcs:enable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
-		global $wgPageLanguageUseDB;
-
-		if ( !$wgPageLanguageUseDB ) {
+		if ( !$sktemplate->getConfig()->get( 'PageLanguageUseDB' ) ) {
 			// Nothing to do if the setting is disabled
 			return;
 		}
@@ -102,9 +100,7 @@ class Hooks implements
 	 * @throws ReflectionException
 	 */
 	public function onUserGetLanguageObject( $user, &$code, $context ) {
-		global $wgPageLanguageUseDB, $wgPerPageLanguageIgnoreUserSetting, $wgLanguageCode;
-
-		if ( !$wgPageLanguageUseDB ) {
+		if ( !$context->getConfig()->get( 'PageLanguageUseDB' ) ) {
 			// Nothing to do if the setting is disabled
 			return;
 		}
@@ -133,10 +129,11 @@ class Hooks implements
 			return;
 		}
 
-		if ( !$wgPerPageLanguageIgnoreUserSetting ) {
+		if ( !$context->getConfig()->get( 'PerPageLanguageIgnoreUserSetting' ) ) {
 			// If we want to respect the user preference on language
 			$userLanguage = $this->userOptionsLookup->getOption( $user, 'language' );
-			if ( $userLanguage != $wgLanguageCode ) {
+			$contentLanguage = $context->getConfig()->get( 'LanguageCode' );
+			if ( $userLanguage !== $contentLanguage ) {
 				// If user did set language option to value different from
 				// the default one - do nothing
 				return;
