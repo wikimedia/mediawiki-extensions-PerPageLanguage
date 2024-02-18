@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\PerPageLanguage;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 use MediaWiki\Hook\UserGetLanguageObjectHook;
 use MediaWiki\Languages\LanguageConverterFactory;
@@ -10,8 +10,8 @@ use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
-use MediaWiki\User\UserOptionsLookup;
 use ReflectionException;
 use ReflectionMethod;
 use SkinTemplate;
@@ -20,25 +20,11 @@ class Hooks implements
 	SkinTemplateNavigation__UniversalHook,
 	UserGetLanguageObjectHook
 {
+	private LanguageFactory $languageFactory;
+	private LanguageConverterFactory $languageConverterFactory;
+	private PermissionManager $permissionManager;
+	private UserOptionsLookup $userOptionsLookup;
 
-	/** @var LanguageFactory */
-	private $languageFactory;
-
-	/** @var LanguageConverterFactory */
-	private $languageConverterFactory;
-
-	/** @var PermissionManager */
-	private $permissionManager;
-
-	/** @var UserOptionsLookup */
-	private $userOptionsLookup;
-
-	/**
-	 * @param LanguageFactory $languageFactory
-	 * @param LanguageConverterFactory $languageConverterFactory
-	 * @param PermissionManager $permissionManager
-	 * @param UserOptionsLookup $userOptionsLookup
-	 */
 	public function __construct(
 		LanguageFactory $languageFactory,
 		LanguageConverterFactory $languageConverterFactory,
