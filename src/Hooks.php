@@ -104,7 +104,7 @@ class Hooks implements
 		// We need some magic here! *~~o-_*
 		try {
 			$method = new ReflectionMethod( $title, 'getDbPageLanguageCode' );
-		} catch ( ReflectionException $e ) {
+		} catch ( ReflectionException ) {
 			// Do nothing on fail
 			return;
 		}
