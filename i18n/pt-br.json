@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardoaddad"
+		]
+	},
+	"perpagelanguage-desc": "Define o idioma da interface para corresponder ao idioma do conteúdo da página",
+	"perpagelanguage-label": "Definir idioma"
+}
