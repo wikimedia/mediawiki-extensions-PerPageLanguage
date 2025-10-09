@@ -108,7 +108,6 @@ class Hooks implements
 			// Do nothing on fail
 			return;
 		}
-		$method->setAccessible( true );
 		/** @var Language $pageLanguageDB */
 		$pageLanguageDB = $method->invoke( $title );
 		if ( !$pageLanguageDB ) {
