@@ -20,21 +20,12 @@ class Hooks implements
 	SkinTemplateNavigation__UniversalHook,
 	UserGetLanguageObjectHook
 {
-	private LanguageFactory $languageFactory;
-	private LanguageConverterFactory $languageConverterFactory;
-	private PermissionManager $permissionManager;
-	private UserOptionsLookup $userOptionsLookup;
-
 	public function __construct(
-		LanguageFactory $languageFactory,
-		LanguageConverterFactory $languageConverterFactory,
-		PermissionManager $permissionManager,
-		UserOptionsLookup $userOptionsLookup
+		private readonly LanguageFactory $languageFactory,
+		private readonly LanguageConverterFactory $languageConverterFactory,
+		private readonly PermissionManager $permissionManager,
+		private readonly UserOptionsLookup $userOptionsLookup,
 	) {
-		$this->languageFactory = $languageFactory;
-		$this->languageConverterFactory = $languageConverterFactory;
-		$this->permissionManager = $permissionManager;
-		$this->userOptionsLookup = $userOptionsLookup;
 	}
 
 	/**
